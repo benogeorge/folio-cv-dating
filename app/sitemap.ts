@@ -28,9 +28,14 @@ const connectionSlugs = [
   'serious-dating-app',
   'dating-app-uk',
   'dating-app-usa',
+  'dating-app-australia',
+  'dating-app-canada',
   'dating-for-professionals',
   'free-online-chat',
   'meet-people-online-free',
+  'tinder-alternative',
+  'bumble-alternative',
+  'hinge-alternative',
   'english-language-exchange',
   'spanish-language-exchange',
   'french-language-exchange',
@@ -72,11 +77,31 @@ const guideSlugs = [
   'how-cv-dating-works',
 ]
 
+const newsSlugs = [
+  'best-no-swipe-dating-apps-2025',
+  'tinder-alternatives-2025',
+  'how-to-meet-people-online-2025',
+  'best-dating-apps-uk-2025',
+  'best-dating-apps-usa-2025',
+  'why-swiping-is-ruining-dating',
+  'language-exchange-apps-2025',
+  'online-dating-tips-for-men-2025',
+]
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()
   return [
     { url: BASE, lastModified: now, changeFrequency: 'daily', priority: 1 },
-    { url: `${BASE}/daily-conversation-prompt`, lastModified: now, changeFrequency: 'daily', priority: 0.9 },
+    { url: `${BASE}/news`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${BASE}/connections`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${BASE}/guides`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${BASE}/daily-conversation-prompt`, lastModified: now, changeFrequency: 'daily', priority: 0.8 },
+    ...newsSlugs.map((slug) => ({
+      url: `${BASE}/news/${slug}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.85,
+    })),
     ...connectionSlugs.map((slug) => ({
       url: `${BASE}/connections/${slug}`,
       lastModified: now,
