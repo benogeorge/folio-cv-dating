@@ -5,9 +5,26 @@ import RealEstateHub from '@/components/RealEstateHub'
 import { STATE_LAWS } from '@/lib/stateLaws'
 
 export const metadata: Metadata = {
-  title: 'RealEstateLegal & Tools | Free Lease Agreements, Airbnb Optimizer & Deal Calculator',
-  description: 'Free, professional real estate tools for landlords, Airbnb hosts, and investors. Generate state-compliant lease agreements (PDF), optimize short-term rental listings, and calculate rental ROI with zero paywalls.',
+  title: 'Free Lease Agreement Generator 2025 | Airbnb Optimizer & Rental ROI Calculator',
+  description: 'Free state-compliant lease agreement generator for all 50 US states — no paywall, instant PDF. Plus free Airbnb listing optimizer and rental cash flow calculator. Trusted by landlords, hosts & investors.',
+  keywords: [
+    'free lease agreement generator',
+    'residential lease agreement free PDF',
+    'lease agreement template 2025',
+    'free rental agreement download',
+    'airbnb listing optimizer free',
+    'rental ROI calculator',
+    'landlord tools free',
+    'state lease agreement generator',
+  ],
   alternates: { canonical: 'https://cvdating.app' },
+  openGraph: {
+    title: 'Free Lease Agreement Generator + Airbnb Optimizer — RealEstateSuite',
+    description: 'State-compliant lease agreements for all 50 US states, free Airbnb listing optimizer, and rental ROI calculator. No paywall. No account. Instant PDF.',
+    url: 'https://cvdating.app',
+    type: 'website',
+    images: [{ url: '/og-image.png', width: 1200, height: 630 }],
+  },
 }
 
 const faqs = [
@@ -30,24 +47,62 @@ const faqs = [
 ]
 
 export default function HomePage() {
-  const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'WebApplication',
-    name: 'RealEstateLegal - Free Landlord, Host & Investor Suite',
-    url: 'https://cvdating.app',
-    applicationCategory: 'BusinessApplication',
-    operatingSystem: 'All',
-    offers: {
-      '@type': 'Offer',
-      price: '0.00',
-      priceCurrency: 'USD',
+  const schemas = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: 'RealEstateSuite — Free Lease Agreement Generator',
+      url: 'https://cvdating.app',
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'All',
+      browserRequirements: 'Requires JavaScript',
+      offers: { '@type': 'Offer', price: '0.00', priceCurrency: 'USD' },
+      featureList: [
+        'State-compliant residential lease agreement generator',
+        'Instant PDF download — no login required',
+        'Airbnb & short-term rental listing optimizer',
+        'Rental cash flow and ROI calculator',
+        'Cap rate and cash-on-cash return calculator',
+      ],
+      screenshot: 'https://cvdating.app/og-image.png',
+      description: 'Free suite of real estate tools: State Residential Lease Agreement Generator (PDF, all 50 states), Airbnb Listing Optimizer, and Rental Deal ROI Calculator. Zero paywall.',
     },
-    description: 'Free suite of real estate tools: State Residential Lease Agreement Generator (PDF), Airbnb Listing Optimizer, and Rental Deal ROI Calculator.',
-  }
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: 'RealEstateSuite',
+      url: 'https://cvdating.app',
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: { '@type': 'EntryPoint', urlTemplate: 'https://cvdating.app/?q={search_term_string}' },
+        'query-input': 'required name=search_term_string',
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: 'RealEstateSuite',
+      url: 'https://cvdating.app',
+      logo: 'https://cvdating.app/og-image.png',
+      description: 'Free real estate tools for landlords, Airbnb hosts and investors — lease agreements, listing optimizer, ROI calculator.',
+      sameAs: [],
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqs.map(f => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ]
 
   return (
     <main className="min-h-screen bg-[#f7f9f6] text-[#1c291f] selection:bg-[#d8e6d6]">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }} />
+      {schemas.map((s, i) => (
+        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(s).replace(/</g, '\\u003c') }} />
+      ))}
 
       {/* HEADER / NAV */}
       <header className="border-b border-[#e2eae0] bg-white sticky top-0 z-50">

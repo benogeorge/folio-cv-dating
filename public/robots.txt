@@ -1,8 +1,11 @@
 User-agent: *
 Allow: /
-Disallow: /app/
-Disallow: /api/
-Disallow: /auth/
-Disallow: /onboarding/
+
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
 
 Sitemap: https://cvdating.app/sitemap.xml
