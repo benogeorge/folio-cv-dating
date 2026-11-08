@@ -1,0 +1,546 @@
+================================================================================
+  FOLIO — CV DATING APP  |  MASTER PRODUCT DOCUMENT
+  Version: 1.0  |  Created: 2026-11-08  |  Author: Antigravity AI
+================================================================================
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. BRAND IDENTITY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+App Name:       FOLIO
+Tagline:        "Your story. Their story. The beginning of one."
+Sub-tagline:    Meet real people. No swipes. No algorithms. Just your work.
+Category:       Social Networking / Lifestyle / Professional-Social Hybrid
+Target Market:  18–35 year old professionals, students, ambitious Gen Z & Millennials
+Gender:         Gender-inclusive (non-binary/gender-neutral — all connection types)
+Intent:         Dating, Friendship, Networking, Mentorship, Collaboration
+
+Logo Concept:
+  - Wordmark: "FOLIO" in a clean geometric sans-serif (think Neue Haas Grotesk)
+  - Icon: Stylized abstract "folded page corner" that doubles as a heart silhouette
+    when rotated — minimalist, editorial, premium
+  - Colors: Deep Plum (#2D1B4E) + Electric Lavender (#C084FC) + Off-White (#FAF8FF)
+  - Accent: Warm Gold (#F59E0B) for premium/sparks moments
+  - Typography: Primary — General Sans or DM Sans; Secondary — Playfair Display (editorial)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2. MARKET ANALYSIS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Global dating app market: ~$10.5–$11.3B (2024), projected $23B+ by mid-2030s
+TAM (Total Addressable Market): $23B by 2034
+SAM (Serviceable Addressable Market): $3.5B — professional/educated niche users
+SOM (Serviceable Obtainable Market): $150M (Year 3 target)
+
+Key Trends:
+  ✓ Gen Z & Millennial "swipe fatigue" — 73% feel burned out by standard apps
+  ✓ Multi-intent platforms dominate (Bumble BFF/Bizz model)
+  ✓ Authenticity > filters — users want real, vulnerable, verifiable content
+  ✓ Niche apps = higher ARPU & loyalty vs. mass market apps
+  ✓ Professional-dating hybrid niche: Shapr, Switch, Lunchclub — all underdeveloped
+
+Competitive Landscape:
+  - Hinge: Relationship-focused, prompt-based, strong 25-35 segment
+  - Bumble: Female-first, BFF/Bizz modes, strong brand
+  - LinkedIn: Professional but zero social/romantic/friendship layer
+  - Shapr: Networking-focused, low engagement, weak UX
+  - Thursday: One-day-per-week activation, exclusivity gimmick
+
+FOLIO Differentiator:
+  - CV as the profile → signals ambition, story, authenticity instantly
+  - Anonymous by default → reduces harassment, increases comfort
+  - Gender-inclusive, intent-flexible (date/friend/collaborate/mentor)
+  - Daily curated batch (4 matches per 24hr) → scarcity = perceived value
+  - Progressive intimacy system: 24hr → 30 days → Permanent connection
+  - No AI-generated photos, no filters — real humans only
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+3. CORE FEATURES & MECHANICS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+3.1 PROFILE — THE "FOLIO"
+  Each user has a Folio (profile) containing:
+    • CV Upload (PDF/image) → parsed into beautiful cards
+    • 3 "Chapter" Prompts (like Hinge prompts but CV-inspired):
+        e.g. "My proudest side project was..."
+             "The skill I'm still unlearning is..."
+             "If my CV could lie, it would say..."
+    • 1 Voice Note (30 sec) — humanises the profile
+    • Ambition Tags: 5 max (e.g. #StartupLife #PhDLife #FitnessCulture)
+    • Intent Badge: 🔴 Dating  🔵 Friends  🟡 Collab  🟢 Mentorship (pick 1-2)
+    • Anonymous Name: System-generated codename (e.g. "Arctic_Volta_88")
+    • Avatar: Silhouette/abstract shape (reveals in stages)
+
+3.2 THE DAILY DROP (Core Loop — ADDICTIVE MECHANIC)
+  Every day at 9:00 AM local time:
+    • 4 new curated Folio matches arrive ("Your 4 Today")
+    • User reviews each one (CV cards, prompts, voice note, tags)
+    • For each: "Continue" or "Pass" (swipe-free — intentional tapping)
+    • Timer: 24 hours to decide, or the match expires → FOMO trigger
+    • Notification: "⏰ Your folios expire in 2 hours" — urgency loop
+
+  Psychology: Scarcity (only 4) + Time pressure (24hr) + Variable reward
+  (who are they?) + Anticipation (9AM ritual) = Habit formation.
+
+3.3 THE PROGRESSIVE CONNECTION LADDER
+  Stage 1 — SPARK (Day 0-1):
+    Both tap "Continue" → Mutual match confirmed
+    → Unlock: First names revealed, 5 chat messages/day limit
+    → Goal: Keep friction high, make each message feel precious
+
+  Stage 2 — THREAD (Day 1-30):
+    Daily check-in prompt: "Still feeling it? Yes / Not anymore"
+    → Both must confirm "Yes" each day to maintain connection
+    → Gradual reveal: Day 7 → first photo reveal, Day 14 → full name,
+      Day 21 → LinkedIn optional share, Day 30 → full unlock
+    → If either says "Not anymore" → graceful exit, no ghost
+    → Chat: unlimited after Day 7
+
+  Stage 3 — FOLIO (Permanent — Day 30+):
+    If both complete 30 days → "Permanent Connection"
+    → User chooses next step: Date / Friend / Collaborate / Mentor
+    → Added to "My People" section permanently
+    → Special "1 Year" and anniversary notifications
+
+  Psychology: Commitment escalation + Sunk cost (invested 30 days) +
+  Reciprocity (daily check-ins) + Anticipation (what do they look like?)
+
+3.4 ANONYMOUS PROFILE SYSTEM
+  Phase 1 (Pre-match): Full anonymity
+    - Codename only ("Arctic_Volta_88")
+    - Abstract geometric avatar (algorithmically generated per user, consistent)
+    - CV parsed into skill tags (no employer names shown until Day 14)
+    - Location: City level only ("London, UK")
+
+  Phase 2 (Spark): Partial reveal
+    - First name only
+    - Abstract avatar + hair color silhouette
+
+  Phase 3 (Thread Day 7+): Gradual reveal
+    - Profile photo (single, chosen by user)
+    - Full CV becomes visible
+
+  Phase 4 (Permanent): Full identity
+    - All details unlocked
+    - Option to exchange social handles
+
+  Anti-harassment: Block/Report at any stage. No screenshots (blurred in-app).
+
+3.5 NOTIFICATIONS (Engineered Triggers)
+  External Triggers (Pull):
+    • 9:00 AM: "Your 4 Folios have arrived ✨" (Daily Drop)
+    • 2 hrs before expiry: "⏰ [Name] expires in 2 hours"
+    • Match confirmed: "🔥 Mutual spark — you're in a Thread"
+    • Daily check-in reminder: "👋 Confirm your Thread today"
+    • Reveal milestones: "🎉 Day 7 — first photo unlocked!"
+    • FOMO: "3 people passed on you today. Level up your Folio?"
+    • Re-engagement (48hr inactive): "Your Folios are waiting..."
+
+3.6 GAMIFICATION & STREAKS
+  • Thread Streaks: "🔥 15-day Thread streak — keep going"
+  • Folio Score: Completeness score (CV, prompts, voice note = 100%)
+  • Discovery Boost: Complete 100% Folio → featured in top 4 for others
+  • "Spark of the Week": Most continued match highlighted (anonymous)
+  • Achievement badges (shown on profile): "30-day legend", "5 Folios deep"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4. MATCHING ALGORITHM
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Signals used for matching (non-AI):
+  1. Intent alignment (Dating↔Dating, Friends↔Friends, etc.)
+  2. Industry/field similarity (extracted from CV)
+  3. Education level & institution type (optional)
+  4. Ambition Tag overlap (Jaccard similarity ≥ 2 shared tags)
+  5. Geographic proximity (city-level, configurable radius)
+  6. Activity level (last active, response rate — fresh users first)
+  7. "Folio completeness" score (rewards full profiles)
+  8. Mutual avoidance: users who passed on each other recently not re-matched for 30 days
+
+No AI black-box — algorithm is explainable and user can see match reasons:
+  "Matched because: same industry, 3 shared tags, both in London"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5. MONETISATION STRATEGY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+FREE TIER (FOLIO FREE):
+  - 4 daily matches
+  - 1 Thread active at a time
+  - 5 messages/day until Day 7
+  - Basic Folio profile
+  - Anonymous by default
+
+FOLIO+ (£9.99/month / £69.99/year):
+  - 8 daily matches (double drop)
+  - 3 Threads simultaneously
+  - Unlimited messages after Spark
+  - See who passed on you (anonymised count)
+  - Priority matching (shown first)
+  - Custom avatar style
+  - Thread pause (pause 1 thread for up to 7 days — vacation mode)
+  - Read receipts in chat
+  - Profile analytics (views, Folio score leaderboard rank)
+
+FOLIO PRO (£24.99/month / £179.99/year):
+  - Everything in FOLIO+
+  - 12 daily matches
+  - 5 Threads simultaneously
+  - "Folio Spotlight" (featured once/week in others' daily drops)
+  - Reveal accelerator (Day 7 reveals → Day 3)
+  - Export connections as contacts after permanent connection
+  - Early access to new features
+
+ONE-TIME PURCHASES:
+  - Thread Revival: £2.99 (re-open an expired match once)
+  - Extra Drop: £1.99 (get 2 bonus matches today)
+  - Anonymity Shield: £4.99/month (hide location city, use VPN-style alias)
+  - Profile Boost: £3.99 (feature in top 4 for 24hrs)
+
+Revenue Projections (Conservative):
+  Year 1: 10K users, 5% conversion → ~£6K MRR → ~£72K ARR
+  Year 2: 50K users, 8% conversion → ~£40K MRR → ~£480K ARR
+  Year 3: 200K users, 12% conversion → ~£240K MRR → ~£2.9M ARR
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+6. UI/UX DESIGN SYSTEM
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Design Philosophy: Editorial Warmth + Professional Clarity + Human Touch
+Inspiration: Hinge (depth) + Linear (clean) + Notion (editorial) + Monzo (delight)
+
+Color Palette:
+  Primary BG:       #0E0A1A  (Deep Space — dark mode default)
+  Secondary BG:     #1A1428  (Card backgrounds)
+  Primary Brand:    #C084FC  (Electric Lavender)
+  Secondary Brand:  #2D1B4E  (Deep Plum)
+  Accent Gold:      #F59E0B  (Spark moments, premium)
+  Accent Coral:     #F97316  (Warnings, expiry timers)
+  Text Primary:     #FAF8FF  (Off-White)
+  Text Secondary:   #9CA3AF  (Muted)
+  Success Green:    #10B981
+  Error Red:        #EF4444
+
+Typography Scale:
+  Display:   General Sans 700, 32px — App Name, Hero text
+  H1:        General Sans 600, 24px — Screen titles
+  H2:        DM Sans 600, 18px — Section headers
+  H3:        DM Sans 500, 16px — Card titles, names
+  Body:      DM Sans 400, 14px — Content
+  Caption:   DM Sans 400, 12px — Timestamps, metadata
+  Accent:    Playfair Display 400 Italic — Pull quotes, taglines
+
+Spacing System: 4px base grid (4, 8, 12, 16, 20, 24, 32, 48, 64)
+Border Radius: 8px (cards), 16px (sheets), 24px (modals), 999px (pills/badges)
+Shadows: Soft glow — box-shadow: 0 0 24px rgba(192, 132, 252, 0.15)
+
+Component Library:
+  - Folio Card (match preview card)
+  - Thread Timeline (30-day progress bar)
+  - Daily Drop Container (4-slot grid)
+  - CV Parser Display (skill chips, role cards)
+  - Voice Note Player (waveform UI)
+  - Anonymous Avatar System (geometric, generative-looking shapes)
+  - Intent Badge (colored pill: 🔴🔵🟡🟢)
+  - Streak Counter (flame + number)
+  - Reveal Timeline (day counter + lock icons)
+  - Chat Bubbles (premium gradient, restrained)
+
+Navigation: Bottom tab bar (5 tabs)
+  🏠 Today (Daily Drop)
+  🔗 Threads (Active connections)
+  💬 Messages
+  👤 My Folio (Profile)
+  ⚡ Sparks (Notifications & activity)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+7. PSYCHOLOGY & ADDICTIVE DESIGN (Ethical Engagement)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+7.1 Nir Eyal's Hook Model applied:
+  TRIGGER  → 9AM push "Your Folios are here" (external) → ritual habit (internal)
+  ACTION   → Open app, review 4 Folios (simple, effortful enough to feel intentional)
+  REWARD   → Variable: will they like me back? Who are these people? (dopamine)
+  INVEST   → User writes thoughtful messages, maintains streak (sunk cost + ownership)
+
+7.2 Psychological Principles Used:
+  ► Scarcity Principle: Only 4 matches/day — each feels rare and special
+  ► Loss Aversion: 24hr timer — "miss them forever if you don't decide"
+  ► Reciprocity: Mutual opt-in required — both must say YES → feels earned
+  ► Social Proof: "3 people found your Folio interesting today" → validation
+  ► Zeigarnik Effect: Open loops (who matched me? who passed?) keep users thinking
+  ► Progressive Disclosure: Gradual identity reveal creates "parasocial build-up"
+  ► Endowment Effect: Users who invest in a 15-day Thread feel it has high value
+  ► Anticipation > Reward: "Your 4 Folios drop in 6 hours" notification builds excitement
+  ► FOMO: "Match expires in 2 hours" creates urgency without being manipulative
+  ► Identity investment: "My Folio" framing = the app is about YOU, not swiping others
+  ► Completion bias: Folio Score % drives profile completion (97% = "almost there!")
+
+7.3 Ethical guardrails (trust builders):
+  ► "Take a break" mode — pause all threads for up to 2 weeks guilt-free
+  ► Weekly digest instead of daily if requested
+  ► "Mindful matching" toggle — only 1 match/day option
+  ► Transparent algorithm — always show WHY you matched
+  ► Graceful exit — always easy to end a Thread with dignity
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+8. SEO & ASO STRATEGY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+8.1 App Store Optimization (ASO)
+
+App Title:    "Folio — Meet Real People"
+Subtitle:     "CV-Powered Connections & Chat"
+Keywords (iOS, 100 chars):
+  "dating,meet,friends,professionals,chat,network,match,anonymous,career,connect"
+
+Google Play Short Description (80 chars):
+  "Upload your CV. Meet ambitious people. No swiping, no filters."
+
+Google Play Long Description (key phrases woven naturally):
+  - professional dating app
+  - meet like-minded people
+  - anonymous dating app
+  - cv profile matching
+  - no swipe dating
+  - meaningful connections
+  - friend finder app
+  - networking app for young professionals
+  - career dating app
+  - meet people near me
+
+Screenshots (7 key frames for ASO):
+  1. "Your story, in one Folio" (profile screen)
+  2. "4 real people. Every morning." (daily drop)
+  3. "30 days to real" (thread timeline)
+  4. "Anonymous until you're ready" (privacy screen)
+  5. "More than dating" (intent selector)
+  6. "No swipes. Just choices." (continue/pass UI)
+  7. "FOLIO+ — go deeper" (premium screen)
+
+8.2 Web SEO (Landing Page / Blog Strategy)
+
+Primary Keywords (high intent, niche):
+  - "cv dating app" (low competition, exact match, own the SERP)
+  - "professional dating app for ambitious people"
+  - "anonymous dating app no photo"
+  - "slow dating app no swipes"
+  - "meaningful connections app"
+  - "meet people without swiping"
+  - "cv based social network"
+
+Secondary Keywords:
+  - "dating app for professionals"
+  - "hinge alternative 2024"
+  - "bumble alternative no swipe"
+  - "best niche dating apps"
+  - "gender neutral dating app"
+
+Content Marketing (Blog/SEO pillars):
+  Pillar 1: "Why Your CV Is Your Best Dating Profile" (1,500 words)
+  Pillar 2: "The Psychology of Slow Dating: Why Less Swipes = Better Love"
+  Pillar 3: "Anonymous Dating Apps: Are They Safer?"
+  Pillar 4: "How We Match You: Folio's No-AI Algorithm Explained"
+  Pillar 5: "Dating Apps for Ambitious People in 2024"
+  Pillar 6: "The 30-Day Connection Experiment"
+
+Technical SEO Checklist:
+  ✓ Schema markup: MobileApplication, Review, FAQPage, BreadcrumbList
+  ✓ Core Web Vitals optimised (LCP < 2.5s, FID < 100ms, CLS < 0.1)
+  ✓ App deep link integration (Smart App Banners, Universal Links)
+  ✓ Social share meta tags (OG, Twitter Cards) for viral profile sharing
+  ✓ Sitemap.xml, robots.txt, canonical URLs
+  ✓ Hreflang for UK/US/AU markets
+  ✓ Structured data for app screenshots and ratings
+  ✓ Blog → App conversion funnels (every article CTA → App download)
+
+8.3 Influencer / Referral Growth
+  - Referral program: "Invite a friend → both get 7-day Folio+ free"
+  - Creator program: Micro-influencers (5K-50K) in career/lifestyle space
+  - Reddit presence: r/dating_advice, r/jobs, r/london, r/professionals
+  - TikTok: "Opening my CV Folios GRWM" trend seeding
+  - LinkedIn organic: "Why I uploaded my CV to a dating app" thought leadership
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+9. TECH STACK
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Frontend (Mobile):
+  - React Native + Expo (iOS & Android)
+  - NativeWind (Tailwind for React Native)
+  - React Navigation v7
+  - Reanimated 3 (smooth animations)
+  - Expo Audio (voice notes)
+  - Expo Document Picker (CV upload)
+  - Lottie (micro-animations, celebrations)
+
+Frontend (Web/Landing):
+  - Next.js 15 (App Router)
+  - Tailwind CSS v4
+  - Framer Motion
+  - next/font (General Sans, DM Sans, Playfair Display)
+
+Backend:
+  - Node.js + Fastify (API server)
+  - PostgreSQL (users, profiles, matches, threads, messages)
+  - Redis (session, rate limiting, daily drop queue)
+  - BullMQ (job queue — 9AM daily drop cron, notification scheduling)
+  - AWS S3 (CV storage, voice notes, photos — encrypted)
+  - AWS Lambda (CV parsing serverless function)
+  - pdf-parse + Tesseract.js (CV text extraction)
+  - Socket.io (real-time chat, online presence)
+
+Authentication:
+  - Supabase Auth (email magic link + Google OAuth)
+  - Phone number verification (Twilio Verify)
+
+Notifications:
+  - Expo Push Notifications (mobile)
+  - SendGrid (email sequences)
+  - OneSignal (web push)
+
+Payments:
+  - Stripe (subscriptions + one-time purchases)
+  - RevenueCat (mobile IAP — App Store + Google Play)
+
+Analytics & Growth:
+  - PostHog (product analytics, funnel tracking)
+  - Amplitude (user journey mapping)
+  - Mixpanel (retention cohorts)
+  - Branch.io (deep linking, referral tracking)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+10. USER FLOWS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ONBOARDING FLOW (< 5 min target):
+  1. Splash (animated logo) → "What's Folio?"
+  2. 3 illustrated feature cards (swipeable)
+  3. Sign up: Email + Magic Link OR Google
+  4. Phone verification (safety/trust)
+  5. Build your Folio:
+     a. Upload CV (PDF/Word/Image) OR fill manually
+     b. Choose 3 Chapter Prompts & answer them (100 char min)
+     c. Record Voice Note (optional but heavily nudged)
+     d. Select Ambition Tags (5 max from curated list)
+     e. Set Intent Badge(s) (1-2 from 4 options)
+     f. Location permission (city-level only, explained)
+  6. "Your Folio is ready" celebration screen
+  7. Set match preferences (age range, proximity radius, intent filter)
+  8. "First Drop Tomorrow at 9AM" — sets expectation, builds anticipation
+  9. → Home screen (empty, beautiful, with countdown to 9AM)
+
+DAILY DROP FLOW:
+  9:00 AM notification → Open app → "Today's Folios" (4 cards)
+  → Tap a card → Expand full Folio (CV, prompts, voice note)
+  → Tap "Continue ✓" or "Pass ✗"
+  → After all 4 decided: summary screen "2 Continues · 2 Passes"
+  → If mutual Continue confirmed: "🔥 It's a Spark!" celebration → Thread starts
+  → 24hr timer resets for next day
+
+THREAD FLOW:
+  → Thread list (shows all active threads with day counter + streak)
+  → Tap a thread → Chat (message-limited early days)
+  → Daily "Still in? Yes / No" prompt appears at same time each day
+  → Reveal milestone notification → new info unlocked, celebration animation
+  → Day 30: "🎉 Permanent Connection" — choose your next step
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+11. SCREENS LIST (UI)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+AUTH:
+  01. Splash Screen
+  02. Welcome / Onboarding Carousel
+  03. Sign Up Screen
+  04. Magic Link Sent Screen
+  05. Phone Verification Screen
+
+ONBOARDING:
+  06. CV Upload Screen
+  07. CV Preview / Parsed View
+  08. Chapter Prompts Screen
+  09. Voice Note Screen
+  10. Ambition Tags Screen
+  11. Intent Badge Screen
+  12. Location Permission Screen
+  13. Match Preferences Screen
+  14. Folio Ready Celebration Screen
+
+MAIN APP:
+  15. Today Tab — Daily Drop (4 Folio cards, countdown)
+  16. Folio Detail View (expanded match profile)
+  17. Continue / Pass Confirmation Modal
+  18. Spark! Match Celebration Screen
+  19. Threads Tab — Thread List
+  20. Thread Detail — Chat + Timeline + Daily Confirm
+  21. Reveal Milestone Screen (animated unlock)
+  22. Day 30 Permanent Connection Screen
+  23. Messages Tab
+  24. Chat Screen
+  25. My Folio Tab — My Profile View
+  26. Edit Folio Screen
+  27. Folio Score Screen (completeness)
+  28. Sparks Tab — Activity / Notifications Feed
+  29. Settings Screen
+  30. Privacy & Safety Screen
+  31. Take a Break Screen
+  32. Subscription Screen (Folio+ / Folio Pro)
+  33. Payment Confirmation Screen
+  34. Referral / Invite Screen
+  35. Achievements / Badges Screen
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+12. LAUNCH ROADMAP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Phase 0 — Design & Build (Month 1-3):
+  ✓ Brand identity + design system (Stitch)
+  ✓ React Native app (MVP screens)
+  ✓ Backend API (auth, profiles, matching engine, chat)
+  ✓ CV parser microservice
+  ✓ Landing page (SEO-ready)
+  ✓ App Store submission (beta)
+
+Phase 1 — Closed Beta (Month 3-4):
+  - 500 invite-only users (university + professional networks)
+  - Gather NPS, qualitative interviews
+  - Fix retention/onboarding friction
+
+Phase 2 — Public Launch (Month 4-6):
+  - App Store (iOS) + Google Play
+  - PR push: TechCrunch, Product Hunt, Hacker News
+  - Reddit, LinkedIn, TikTok seeding
+  - Google Search ads on "cv dating app" (own the SERP day 1)
+
+Phase 3 — Growth (Month 6-12):
+  - Launch Folio+ subscription
+  - City-by-city expansion (London → Manchester → NYC → Berlin)
+  - Influencer partnership campaign
+  - University partnership program
+
+Phase 4 — Scale (Year 2):
+  - Folio for Teams (companies pay for employee socialisation)
+  - API for LinkedIn integration
+  - Desktop web app (for professionals)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+13. SAFETY & TRUST
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  - Phone number verification required (all users)
+  - CV verification optional (+Verified badge for LinkedIn-linked CVs)
+  - Report system: 3-tap report flow with immediate review
+  - 24hr automated moderation (ML content filters on text)
+  - No screenshot policy (screen blur on message content)
+  - Block: immediate, full two-way block
+  - Safety Center: in-app mental health resources + "Date Safe" guide
+  - GDPR/CCPA compliant: data export + deletion within 30 days
+  - Encryption: end-to-end encrypted messages (Signal Protocol)
+  - CV data: stored encrypted, never shared with third parties
+  - Anonymous mode: no employer names visible until Day 14 mutual consent
+
+================================================================================
+END OF DOCUMENT — FOLIO APP MASTER INFO FILE
+Last updated: 2026-11-08
+================================================================================

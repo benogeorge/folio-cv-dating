@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital@1&display=swap');
+
+:root {
+  --font-dm-sans: 'DM Sans', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  background-color: #0E0A1A;
+  color: #FAF8FF;
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #0E0A1A; }
+::-webkit-scrollbar-thumb { background: #2D1B4E; border-radius: 4px; }
+
+/* Folio card glow */
+.folio-card {
+  background: #1A1428;
+  border: 1px solid rgba(192,132,252,0.15);
+  border-radius: 20px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.folio-card:hover {
+  border-color: rgba(192,132,252,0.4);
+  box-shadow: 0 0 24px rgba(192,132,252,0.15);
+}
+
+/* Pill button */
+.btn-primary {
+  background: #C084FC;
+  color: #0E0A1A;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 14px 28px;
+  font-size: 16px;
+  transition: background 0.2s, transform 0.1s;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  width: 100%;
+}
+.btn-primary:hover { background: #A855F7; }
+.btn-primary:active { transform: scale(0.98); }
+
+.btn-ghost {
+  background: transparent;
+  color: #FAF8FF;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 14px 28px;
+  font-size: 16px;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  transition: border-color 0.2s;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,0.5); }
+
+/* Intent badge */
+.badge { border-radius: 999px; padding: 4px 12px; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
+.badge-dating  { background: rgba(239,68,68,0.15);  color: #FCA5A5; }
+.badge-friends { background: rgba(96,165,250,0.15); color: #93C5FD; }
+.badge-collab  { background: rgba(251,191,36,0.15); color: #FCD34D; }
+.badge-mentor  { background: rgba(52,211,153,0.15); color: #6EE7B7; }
+
+/* Skill chip */
+.chip { background: rgba(192,132,252,0.12); color: #C084FC; border-radius: 999px; padding: 3px 10px; font-size: 12px; font-weight: 500; display: inline-block; }
+
+/* Bottom nav */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: #110D1F;
+  border-top: 1px solid rgba(192,132,252,0.12);
+  display: flex; align-items: center; justify-content: space-around;
+  padding: 10px 0 max(10px, env(safe-area-inset-bottom));
+  z-index: 50;
+}
+
+/* Thread progress bar */
+.thread-bar { height: 4px; background: rgba(192,132,252,0.15); border-radius: 999px; overflow: hidden; }
+.thread-bar-fill { height: 100%; background: linear-gradient(90deg,#C084FC,#818CF8); border-radius: 999px; transition: width 0.6s ease; }
+
+/* Countdown pill */
+.countdown-pill { background: rgba(249,115,22,0.15); color: #F97316; border-radius: 999px; padding: 3px 10px; font-size: 12px; font-weight: 600; }
+.countdown-pill.urgent { background: rgba(239,68,68,0.2); color: #EF4444; animation: pulse 1.5s infinite; }
+
+/* Chat bubble */
+.bubble-sent { background: #C084FC; color: #0E0A1A; border-radius: 18px 18px 4px 18px; padding: 10px 14px; font-size: 14px; max-width: 75%; align-self: flex-end; }
+.bubble-recv { background: #221A38; color: #FAF8FF; border-radius: 18px 18px 18px 4px; padding: 10px 14px; font-size: 14px; max-width: 75%; align-self: flex-start; }
+
+/* Input */
+.input { background: #221A38; border: 1px solid rgba(192,132,252,0.2); border-radius: 12px; color: #FAF8FF; padding: 12px 16px; font-size: 14px; width: 100%; outline: none; }
+.input:focus { border-color: #C084FC; box-shadow: 0 0 0 2px rgba(192,132,252,0.15); }
+.input::placeholder { color: #9CA3AF; }
+
+/* Geometric avatar ring */
+.avatar-ring { border-radius: 50%; padding: 3px; background: linear-gradient(135deg,#C084FC,#818CF8); display: inline-flex; }
+.avatar-inner { border-radius: 50%; background: #0E0A1A; display: flex; align-items: center; justify-content: center; }
+
+@keyframes confetti-fall {
+  0% { transform: translateY(-100%) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+.confetti-piece { position: fixed; width: 8px; height: 8px; animation: confetti-fall 2.5s ease-in forwards; border-radius: 2px; }
