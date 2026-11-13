@@ -4,26 +4,26 @@ import { ArrowRight, Clock3, FileText, HeartHandshake, Languages, UsersRound } f
 import AdSlot from './AdSlot'
 
 export const metadata: Metadata = {
-  title: 'MeetByStory: Online Chat, Dating, Friends & Language Exchange',
-  description: 'Meet people through your story, not a swipe. MeetByStory offers up to four automatic introductions for dating, friendship, and language exchange, with a 24-hour conversation.',
+  title: 'CV Dating — Online Chat, Dating & Language Exchange Without Swiping',
+  description: 'CV Dating connects adults through shared stories, not swipe fatigue. Get 4 curated daily introductions for serious dating, friendship, language exchange, and career connections.',
   alternates: { canonical: '/' },
   openGraph: {
-    title: 'Online chat and dating without swiping — MeetByStory',
-    description: 'A thoughtful way to meet people for dating, friendship, and language exchange. Up to four introductions, with a 24-hour conversation.',
+    title: 'CV Dating — Online Chat, Dating & Language Exchange Without Swiping',
+    description: 'A thoughtful way to meet adults for dating, friendship, and language exchange. Up to four introductions with a 24-hour conversation.',
     url: '/',
-    siteName: 'MeetByStory',
+    siteName: 'CV Dating',
     type: 'website',
   },
   twitter: {
-    card: 'summary',
-    title: 'Online chat and dating without swiping — MeetByStory',
+    card: 'summary_large_image',
+    title: 'CV Dating — Online Chat, Dating & Language Exchange Without Swiping',
     description: 'Meet people for dating, friendship, and language exchange through thoughtful introductions, not a swipe stack.',
   },
 }
 
 const steps = [
   { number: '01', title: 'Share your story', description: 'Upload a CV and tell us what kind of connection you want. Your work is one part of your profile, not the whole story.' },
-  { number: '02', title: 'Get automatic introductions', description: 'Each day, MeetByStory selects up to four people for you from available members. No browsing a stack of faces and no choosing who makes the list.' },
+  { number: '02', title: 'Get automatic introductions', description: 'Each day, CV Dating selects up to four people for you from available members. No browsing a stack of faces and no choosing who makes the list.' },
   { number: '03', title: 'Talk for 24 hours', description: 'Your introduction opens a conversation. Get to know each other during the full 24-hour period before moving into the longer connection path.' },
 ]
 
@@ -59,7 +59,7 @@ export default function HomePage() {
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    name: 'MeetByStory',
+    name: 'CV Dating',
     url: baseUrl,
     applicationCategory: 'SocialNetworkingApplication',
     operatingSystem: 'Web',
@@ -70,7 +70,7 @@ export default function HomePage() {
       <main className="min-h-screen bg-[#f7f5f1] text-[#252923] selection:bg-[#d9e7d9]">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }} />
       <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-6 sm:px-10">
-        <Link href="/" aria-label="MeetByStory home" className="text-lg font-semibold tracking-[-0.04em]">MeetByStory<span className="text-[#45634b]">.</span></Link>
+        <Link href="/" aria-label="CV Dating home" className="text-lg font-semibold tracking-[-0.04em]">CV Dating<span className="text-[#45634b]">.</span></Link>
         <Link href="/auth" className="rounded-full border border-[#d8d8d0] px-5 py-2.5 text-sm font-medium transition hover:border-[#45634b] hover:text-[#42634b]">Sign in</Link>
       </header>
 
@@ -108,7 +108,7 @@ export default function HomePage() {
       <section className="border-y border-[#e4e2dc] bg-[#fbfaf8]">
         <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 md:py-20">
           <div className="max-w-xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#45634b]">How MeetByStory works</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#45634b]">How CV Dating works</p>
             <h2 className="mt-4 text-3xl font-medium tracking-[-0.045em] sm:text-4xl">A small number of introductions, chosen with intention.</h2>
           </div>
           <div className="mt-12 grid gap-9 md:grid-cols-3 md:gap-12">
@@ -129,7 +129,7 @@ export default function HomePage() {
       <section className="border-t border-[#e4e2dc] bg-[#fbfaf8]">
         <div className="mx-auto max-w-6xl px-6 py-14 sm:px-10">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#45634b]">Choose your kind of connection</p>
-          <h2 className="mt-3 text-2xl font-medium tracking-[-0.04em]">Explore how MeetByStory works for different goals.</h2>
+          <h2 className="mt-3 text-2xl font-medium tracking-[-0.04em]">Explore how CV Dating works for different goals.</h2>
           <div className="mt-6 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
             {connectionGuides.map((guide) => <Link key={guide.href} href={guide.href} className="text-sm text-[#42634b] underline underline-offset-4 hover:text-[#284a33]">{guide.label} →</Link>)}
           </div>
@@ -139,11 +139,11 @@ export default function HomePage() {
       <section className="bg-[#345b40] text-white">
         <div className="mx-auto flex max-w-6xl flex-col gap-7 px-6 py-14 sm:px-10 md:flex-row md:items-center md:justify-between md:py-16">
           <div><p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#c6dbc8]">Start with a better introduction</p><h2 className="mt-3 max-w-xl text-3xl font-medium tracking-[-0.04em]">Bring your whole story. Let the right people find you.</h2></div>
-          <Link href="/auth" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-sm font-semibold text-[#345b40] transition hover:bg-[#edf3ec]">Join MeetByStory <ArrowRight size={16} /></Link>
+          <Link href="/auth" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-sm font-semibold text-[#345b40] transition hover:bg-[#edf3ec]">Join CV Dating <ArrowRight size={16} /></Link>
         </div>
       </section>
 
-      <footer className="mx-auto flex max-w-6xl flex-col gap-3 px-6 py-6 text-xs text-[#5d645a] sm:flex-row sm:items-center sm:justify-between sm:px-10"><span>MeetByStory · Meet beyond the swipe.</span><span>Dating · Friendship · Language exchange · Lasting connection</span></footer>
+      <footer className="mx-auto flex max-w-6xl flex-col gap-3 px-6 py-6 text-xs text-[#5d645a] sm:flex-row sm:items-center sm:justify-between sm:px-10"><span>CV Dating · Meet beyond the swipe.</span><span>Dating · Friendship · Language exchange · Lasting connection</span></footer>
     </main>
   )
 }
