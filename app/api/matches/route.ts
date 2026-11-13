@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { generateDailyMatches } from "@/lib/match-engine";
 
 export async function GET(req: NextRequest) {
@@ -9,8 +10,7 @@ export async function GET(req: NextRequest) {
       data: { user },
     } = await supabase.auth.getUser();
 
-    const isDemo = req.cookies.get("folio_demo_session")?.value === "true";
-    const userId = user?.id || (isDemo ? "demo-user-id" : null);
+    const userId = user?.id;
 
     if (!userId) {
       return NextResponse.json(
@@ -19,10 +19,10 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    const matches = await generateDailyMatches(userId, supabase);
+    const matches = await generateDailyMatches(userId, createAdminClient());
     return NextResponse.json({ matches });
   } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : "Error loading matches";
-    return NextResponse.json({ error: message }, { status: 500 });
+    console.error("Could not load introductions:", err);
+    return NextResponse.json({ error: "Introductions are temporarily unavailable." }, { status: 503 });
   }
 }

@@ -28,7 +28,7 @@ export default async function MessagesPage() {
 
   const otherIds = threads?.map((t) => (t.user_a === session.user.id ? t.user_b : t.user_a)) ?? []
   const { data: profiles } = otherIds.length > 0
-    ? await supabase.from('profiles').select('id,codename,first_name').in('id', otherIds)
+    ? await supabase.from('public_profiles').select('id,codename,first_name').in('id', otherIds)
     : { data: [] }
 
   // Fetch last message for each thread
@@ -65,10 +65,7 @@ export default async function MessagesPage() {
       ) : (
         <div className="flex flex-col gap-2">
           {enriched.map((t) => {
-            const displayName =
-              t.day_count >= 7 && t.partner?.first_name
-                ? `${t.partner.first_name} (${t.partner.codename})`
-                : t.partner?.codename ?? 'Unknown'
+            const displayName = t.partner?.codename ?? 'Unknown'
 
             return (
               <Link key={t.id} href={`/app/threads/${t.id}`}>

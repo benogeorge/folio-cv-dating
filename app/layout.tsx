@@ -1,14 +1,25 @@
 import type { Metadata } from 'next'
+import CookieConsent from './CookieConsent'
+import AnalyticsGate from './AnalyticsGate'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'FOLIO — Your story. Their story. The beginning of one.',
-  description: 'Upload your CV. Meet ambitious people. 4 real matches every morning. No swipes, no filters, no AI — just your work and 30 days to find out.',
-  keywords: 'cv dating app, professional dating, anonymous dating, slow dating, meet people, no swipe dating',
+  metadataBase: new URL(process.env.NODE_ENV === 'production' ? 'https://cvdating.app' : process.env.NEXT_PUBLIC_APP_URL || 'https://cvdating.app'),
+  title: {
+    default: 'MeetByStory — Online Chat, Dating & Friends Without Swiping',
+    template: '%s | MeetByStory',
+  },
+  description: 'No-swipe dating, private online chat, friendship, love and language exchange for adults of all genders and backgrounds. Meet through automatic introductions and a full 24-hour conversation.',
+  keywords: ['no swipe dating app', 'private online chat for adults', 'meet singles online', 'make friends online', 'language exchange app', 'serious dating app', 'international dating'],
+  applicationName: 'MeetByStory',
+  category: 'social networking',
+  robots: { index: true, follow: true },
   openGraph: {
-    title: 'FOLIO',
-    description: 'CV-powered connections. 4 real people. Every morning.',
+    title: 'MeetByStory — Meet Beyond the Swipe',
+    description: 'Up to four introductions selected for you. Conversations begin automatically and stay open through a 24-hour introduction period.',
     type: 'website',
+    siteName: 'MeetByStory',
+    locale: 'en_GB',
   },
 }
 
@@ -24,6 +35,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="bg-app text-text-main font-sans min-h-screen">
         {children}
+        <CookieConsent />
+        <AnalyticsGate />
       </body>
     </html>
   )

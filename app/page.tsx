@@ -1,185 +1,149 @@
-'use client'
+import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Flame, Clock, Sparkles, ArrowRight, ShieldCheck, FileText, ChevronRight } from 'lucide-react'
+import { ArrowRight, Clock3, FileText, HeartHandshake, Languages, UsersRound } from 'lucide-react'
+import AdSlot from './AdSlot'
+
+export const metadata: Metadata = {
+  title: 'MeetByStory: Online Chat, Dating, Friends & Language Exchange',
+  description: 'Meet people through your story, not a swipe. MeetByStory offers up to four automatic introductions for dating, friendship, and language exchange, with a 24-hour conversation.',
+  alternates: { canonical: '/' },
+  openGraph: {
+    title: 'Online chat and dating without swiping — MeetByStory',
+    description: 'A thoughtful way to meet people for dating, friendship, and language exchange. Up to four introductions, with a 24-hour conversation.',
+    url: '/',
+    siteName: 'MeetByStory',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Online chat and dating without swiping — MeetByStory',
+    description: 'Meet people for dating, friendship, and language exchange through thoughtful introductions, not a swipe stack.',
+  },
+}
+
+const steps = [
+  { number: '01', title: 'Share your story', description: 'Upload a CV and tell us what kind of connection you want. Your work is one part of your profile, not the whole story.' },
+  { number: '02', title: 'Get automatic introductions', description: 'Each day, MeetByStory selects up to four people for you from available members. No browsing a stack of faces and no choosing who makes the list.' },
+  { number: '03', title: 'Talk for 24 hours', description: 'Your introduction opens a conversation. Get to know each other during the full 24-hour period before moving into the longer connection path.' },
+]
+
+const connectionTypes = [
+  { icon: HeartHandshake, label: 'Dating & lasting relationships' },
+  { icon: UsersRound, label: 'Friendship & community' },
+  { icon: Languages, label: 'Language exchange across borders' },
+]
+
+const connectionGuides = [
+  { label: 'HelloTalk alternative (chat & date)', href: '/connections/hellotalk-alternative' },
+  { label: 'Meet girls online', href: '/connections/meet-girls-online' },
+  { label: 'Meet women online', href: '/connections/meet-women-online' },
+  { label: 'Dating without swiping', href: '/connections/dating-without-swiping' },
+  { label: 'CV-based dating', href: '/connections/cv-based-dating' },
+  { label: 'Slow dating app', href: '/connections/slow-dating-app' },
+  { label: 'Chat with strangers (safely)', href: '/connections/chat-with-strangers' },
+  { label: 'Make friends online', href: '/connections/make-friends-online' },
+  { label: 'Language exchange hub', href: '/connections/language-exchange' },
+  { label: 'Long-term relationships', href: '/connections/long-term-relationships' },
+  { label: 'Private online chat', href: '/connections/anonymous-online-chat' },
+  { label: 'Meet K-pop fans', href: '/connections/kpop-fans-online' },
+  { label: 'Meet anime and manga fans', href: '/connections/anime-manga-fans-online' },
+  { label: 'Meet Goth & alternative adults', href: '/connections/goth-alternative-community' },
+  { label: 'Meet gaming friends', href: '/connections/gaming-friends-online' },
+  { label: 'All 40+ Connection Hubs →', href: '/connections' },
+  { label: 'All 20+ Expert Guides & Advice →', href: '/guides' },
+  { label: 'Daily conversation prompt', href: '/daily-conversation-prompt' },
+]
 
 export default function HomePage() {
+  const baseUrl = process.env.NODE_ENV === 'production' ? 'https://cvdating.app' : process.env.NEXT_PUBLIC_APP_URL || 'https://cvdating.app'
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'MeetByStory',
+    url: baseUrl,
+    applicationCategory: 'SocialNetworkingApplication',
+    operatingSystem: 'Web',
+    description: 'A CV-informed introduction app for dating, friendship, language exchange, and meaningful connection without swiping.',
+  }
+
   return (
-    <main className="bg-[#0E0A1A] text-[#FAF8FF] min-h-screen selection:bg-[#C084FC]/30 selection:text-[#FAF8FF]">
-      {/* Mobile-constrained Luxury Broadsheet Container */}
-      <div className="max-w-md mx-auto min-h-screen relative flex flex-col bg-[#0E0A1A] border-x border-[#1A1428] shadow-2xl pb-24">
-        
-        {/* Editorial Top Masthead */}
-        <header className="px-6 py-5 border-b border-[#231B36] flex items-center justify-between sticky top-0 bg-[#0E0A1A]/95 backdrop-blur-md z-40">
-          <div className="flex items-center gap-2 text-[#F59E0B] text-xs font-bold tracking-wider">
-            <Flame size={16} />
-            <span>DAY 1 · EDITION 04</span>
+      <main className="min-h-screen bg-[#f7f5f1] text-[#252923] selection:bg-[#d9e7d9]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }} />
+      <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-6 sm:px-10">
+        <Link href="/" aria-label="MeetByStory home" className="text-lg font-semibold tracking-[-0.04em]">MeetByStory<span className="text-[#45634b]">.</span></Link>
+        <Link href="/auth" className="rounded-full border border-[#d8d8d0] px-5 py-2.5 text-sm font-medium transition hover:border-[#45634b] hover:text-[#42634b]">Sign in</Link>
+      </header>
+
+      <section className="relative isolate overflow-hidden bg-[#13231a] text-[#f7f5f1]">
+        <div aria-hidden="true" className="absolute -right-40 -top-48 -z-10 h-[34rem] w-[34rem] rounded-full bg-[#345b40] opacity-40 blur-3xl" />
+        <div className="mx-auto grid max-w-6xl gap-12 px-6 pb-20 pt-14 sm:px-10 md:grid-cols-[1.05fr_0.95fr] md:items-center md:pb-28 md:pt-20">
+          <div>
+            <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-[#c6dbc8]"><FileText size={14} /> A more human way to meet</p>
+            <h1 className="max-w-2xl text-5xl font-medium leading-[1.03] tracking-[-0.06em] sm:text-6xl md:text-7xl">Less swiping.<br /><span className="text-[#b8d1b7]">More to talk about.</span></h1>
+            <p className="mt-7 max-w-xl text-lg leading-8 text-[#d5ded5]">Tell us about your life and who you hope to meet. We choose up to four people for you—automatically—and open a chat for a full 24 hours. No photo queue. No choosing who gets through.</p>
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Link href="/auth" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#d5e6d1] px-7 py-4 text-sm font-semibold text-[#193421] transition hover:bg-white">Create your profile <ArrowRight size={16} /></Link>
+              <span className="text-sm text-[#d5ded5]">For dating, friendship, or language exchange.</span>
+            </div>
+            <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-sm text-[#d5ded5]">
+              <span className="inline-flex items-center gap-2"><UsersRound size={16} className="text-[#b8d1b7]" /> Meet across genders and borders</span>
+              <span className="inline-flex items-center gap-2"><Clock3 size={16} className="text-[#b8d1b7]" /> A full day to talk</span>
+            </div>
           </div>
 
-          <div className="text-center">
-            <span className="font-serif tracking-[0.25em] text-lg font-bold text-white block">FOLIO</span>
-            <span className="text-[9px] font-mono tracking-widest text-[#9CA3AF] uppercase block -mt-0.5">The Human Network</span>
+          <div className="relative mx-auto w-full max-w-lg rounded-[2rem] border border-white/10 bg-white/[0.07] p-6 shadow-2xl shadow-black/20 backdrop-blur sm:p-8">
+            <div className="flex items-start justify-between gap-4"><div><p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#b8d1b7]">Your day, made simpler</p><h2 className="mt-2 text-2xl font-medium tracking-[-0.04em]">Four introductions.<br />One good conversation at a time.</h2></div><span className="rounded-full bg-[#b8d1b7] px-3 py-1.5 text-xs font-bold text-[#193421]">24h</span></div>
+            <div className="mt-8 space-y-3">
+              <div className="rounded-2xl border border-white/10 bg-[#f7f5f1] p-4 text-[#252923]"><p className="text-xs font-semibold uppercase tracking-wider text-[#45634b]">You share</p><p className="mt-1 text-sm">Your story, interests, and the connection you want.</p></div>
+              <div className="flex justify-center text-[#b8d1b7]" aria-hidden="true"><ArrowRight className="rotate-90" size={18} /></div>
+              <div className="rounded-2xl border border-white/10 bg-[#e8ede5] p-4 text-[#252923]"><p className="text-xs font-semibold uppercase tracking-wider text-[#45634b]">We introduce</p><p className="mt-1 text-sm">Up to four people who may be a thoughtful fit.</p></div>
+              <div className="flex justify-center text-[#b8d1b7]" aria-hidden="true"><ArrowRight className="rotate-90" size={18} /></div>
+              <div className="rounded-2xl bg-[#345b40] p-4 text-white"><p className="text-xs font-semibold uppercase tracking-wider text-[#d5e6d1]">You talk</p><p className="mt-1 text-sm">The chat opens. Take the day to get to know each other.</p></div>
+            </div>
+            <p className="mt-5 text-xs leading-5 text-[#d5ded5]">Introductions depend on who is available. You never need to swipe through a stack first.</p>
           </div>
-
-          <Link href="/auth" className="text-xs font-semibold text-[#C084FC] hover:text-white transition-colors">
-            Sign In
-          </Link>
-        </header>
-
-        {/* Lead Volume Banner */}
-        <div className="px-6 pt-6 pb-4">
-          <div className="flex items-center justify-between text-[11px] text-[#9CA3AF] font-mono mb-2">
-            <span>VOLUME 01 // LONDON & GLOBAL</span>
-            <span className="text-[#F97316] font-semibold flex items-center gap-1">
-              <Clock size={12} /> 24H WINDOW
-            </span>
-          </div>
-          <h1 className="text-2xl font-serif font-bold tracking-tight text-white leading-snug">
-            Curated Minds.<br />
-            <span className="italic font-normal text-[#C084FC]" style={{ fontFamily: 'Playfair Display, serif' }}>
-              No Swipes. Just Real Work.
-            </span>
-          </h1>
-          <p className="text-xs text-[#9CA3AF] mt-2 leading-relaxed font-sans">
-            Every morning at 9:00 AM, our heuristic vector engine presents 4 people whose trajectory and values align with yours. 
-            Review their work, annotations, and character before connection.
-          </p>
         </div>
+      </section>
 
-        {/* Primary Feature Match: Tactile Cream Card (Elena Vance) */}
-        <section className="px-5 my-2">
-          <div className="bg-[#FAF7F2] text-[#1C181D] rounded-2xl p-5 shadow-xl border border-[#E8E2D8] relative overflow-hidden">
-            <div className="flex justify-between items-start mb-3">
-              <span className="text-[9px] font-mono tracking-widest uppercase text-[#5D5764] bg-[#E8E2D8]/60 px-2 py-0.5 rounded">
-                CANDIDATE // 01 OF 04
-              </span>
-              <span className="text-[10px] font-mono font-bold text-[#F97316] bg-[#F97316]/10 px-2 py-0.5 rounded-full">
-                23H REMAINING
-              </span>
-            </div>
-
-            <div className="flex items-start justify-between gap-3 mb-4">
-              <div>
-                <h2 className="text-xl font-serif font-bold text-[#1C181D] leading-tight">
-                  Elena Vance, 31
-                </h2>
-                <p className="text-xs font-sans text-[#5D5764] mt-0.5">
-                  Urban Systems Director · London & Zurich
-                </p>
-              </div>
-              <div className="w-12 h-12 rounded-xl bg-[#1C181D] text-[#FAF7F2] flex items-center justify-center font-mono font-bold text-sm shrink-0">
-                EV
-              </div>
-            </div>
-
-            {/* Trajectory Timeline */}
-            <div className="border-y border-[#E8E2D8] py-3 my-3 flex flex-col gap-2">
-              <span className="text-[9px] font-mono tracking-wider uppercase text-[#5D5764] font-bold">
-                Career Trajectory & Anchors
-              </span>
-              <div className="text-xs font-sans text-[#1C181D] flex flex-col gap-1.5">
-                <div className="flex gap-2 items-baseline">
-                  <span className="font-mono text-[10px] text-[#5D5764] shrink-0">2019–2022</span>
-                  <span>Senior Associate, Foster + Partners (Infrastructure)</span>
-                </div>
-                <div className="flex gap-2 items-baseline">
-                  <span className="font-mono text-[10px] text-[#5D5764] shrink-0">2022–NOW</span>
-                  <span className="font-semibold">Founding Partner, Atelier Terracotta</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Editorial Pull Quote */}
-            <blockquote className="my-3 italic text-xs text-[#1C181D]/90 font-serif leading-relaxed border-l-2 border-[#1C181D] pl-3 py-0.5">
-              &ldquo;I believe the architecture we build in our thirties should outlive our personal egos by at least a century.&rdquo;
-            </blockquote>
-
-            {/* Chapter Prompt */}
-            <div className="bg-[#EFEAE1] p-3 rounded-xl my-3">
-              <span className="text-[9px] font-mono text-[#5D5764] uppercase block mb-1">
-                Chapter Prompt: What I&apos;m Seeking
-              </span>
-              <p className="text-xs font-sans text-[#1C181D]">
-                Someone who builds with disciplined intensity by day, but protects their evening conversations without distraction.
-              </p>
-            </div>
-
-            {/* Interaction Buttons */}
-            <div className="grid grid-cols-2 gap-2.5 mt-4">
-              <Link href="/auth" className="py-2.5 rounded-xl border border-[#1C181D]/20 hover:bg-[#1C181D]/5 text-xs font-semibold text-center text-[#1C181D] transition-colors">
-                Pass Tactfully
-              </Link>
-              <Link href="/auth" className="py-2.5 rounded-xl bg-[#1C181D] hover:bg-[#2E2830] text-xs font-bold text-center text-[#FAF7F2] transition-colors flex items-center justify-center gap-1">
-                <span>Continue</span>
-                <ArrowRight size={13} />
-              </Link>
-            </div>
+      <section className="border-y border-[#e4e2dc] bg-[#fbfaf8]">
+        <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 md:py-20">
+          <div className="max-w-xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#45634b]">How MeetByStory works</p>
+            <h2 className="mt-4 text-3xl font-medium tracking-[-0.045em] sm:text-4xl">A small number of introductions, chosen with intention.</h2>
           </div>
-        </section>
-
-        {/* Secondary Match Strip */}
-        <section className="px-5 mt-4 mb-6">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-[10px] font-mono tracking-widest uppercase text-[#9CA3AF]">
-              REMAINING DAILY DOSSIERS
-            </span>
-            <span className="text-[10px] font-mono text-[#C084FC]">3 PENDING</span>
+          <div className="mt-12 grid gap-9 md:grid-cols-3 md:gap-12">
+            {steps.map((step) => <article key={step.number} className="border-t border-[#d8d8d0] pt-5"><span className="text-xs font-semibold tracking-[0.12em] text-[#45634b]">{step.number}</span><h3 className="mt-5 text-lg font-semibold tracking-[-0.02em]">{step.title}</h3><p className="mt-3 text-sm leading-6 text-[#6c7068]">{step.description}</p></article>)}
           </div>
+        </div>
+      </section>
 
-          <div className="flex flex-col gap-2.5">
-            {/* Card 2 */}
-            <div className="folio-card p-4 flex items-center justify-between hover:border-[#C084FC]/50 transition-colors">
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="font-bold text-sm text-white">Julian Mercer, 34</span>
-                  <span className="text-[10px] font-mono text-[#9CA3AF]">Oxford</span>
-                </div>
-                <p className="text-xs text-[#9CA3AF] mt-0.5">Principal Scientist in Genomics & Longevity</p>
-              </div>
-              <Link href="/auth" className="px-3 py-1.5 rounded-full bg-[#231B36] text-xs font-semibold text-[#FAF8FF] hover:bg-[#C084FC] hover:text-[#0E0A1A] transition-colors flex items-center gap-1">
-                <span>Review</span>
-                <ChevronRight size={13} />
-              </Link>
-            </div>
+      <section className="mx-auto max-w-6xl px-6 py-16 sm:px-10 md:py-20">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#45634b]">Dating and beyond</p>
+        <h2 className="mt-4 max-w-2xl text-3xl font-medium tracking-[-0.045em] sm:text-4xl">For the connection you are actually hoping to find.</h2>
+        <p className="mt-4 max-w-2xl text-base leading-7 text-[#6c7068]">Some people want to date. Some want a friend in a new city or a language partner on the other side of the world. Some hope to meet a life partner. Choose your intention and meet people looking for the same kind of connection.</p>
+        <div className="mt-8 flex flex-wrap gap-3">{connectionTypes.map(({ icon: Icon, label }) => <span key={label} className="inline-flex items-center gap-2 rounded-full border border-[#d8d8d0] bg-[#fbfaf8] px-4 py-2.5 text-sm text-[#4e554d]"><Icon size={16} className="text-[#45634b]" />{label}</span>)}</div>
+      </section>
 
-            {/* Card 3 */}
-            <div className="folio-card p-4 flex items-center justify-between hover:border-[#C084FC]/50 transition-colors">
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="font-bold text-sm text-white">Sora Takahashi, 29</span>
-                  <span className="text-[10px] font-mono text-[#9CA3AF]">Tokyo / Paris</span>
-                </div>
-                <p className="text-xs text-[#9CA3AF] mt-0.5">Type Foundry Founder & Generative Technologist</p>
-              </div>
-              <Link href="/auth" className="px-3 py-1.5 rounded-full bg-[#231B36] text-xs font-semibold text-[#FAF8FF] hover:bg-[#C084FC] hover:text-[#0E0A1A] transition-colors flex items-center gap-1">
-                <span>Review</span>
-                <ChevronRight size={13} />
-              </Link>
-            </div>
+      <AdSlot />
+
+      <section className="border-t border-[#e4e2dc] bg-[#fbfaf8]">
+        <div className="mx-auto max-w-6xl px-6 py-14 sm:px-10">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#45634b]">Choose your kind of connection</p>
+          <h2 className="mt-3 text-2xl font-medium tracking-[-0.04em]">Explore how MeetByStory works for different goals.</h2>
+          <div className="mt-6 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
+            {connectionGuides.map((guide) => <Link key={guide.href} href={guide.href} className="text-sm text-[#42634b] underline underline-offset-4 hover:text-[#284a33]">{guide.label} →</Link>)}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* The 30-Day Philosophy */}
-        <section className="px-6 py-6 border-t border-[#231B36] text-center">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#1A1428] border border-[#231B36] text-[10px] font-mono uppercase text-[#C084FC] mb-3">
-            <ShieldCheck size={12} /> The 30-Day Progressive Protocol
-          </div>
-          <p className="font-serif italic text-sm text-[#FAF8FF]/80 leading-relaxed mb-2">
-            &ldquo;Conversations that ripen in depth rather than disposable speed.&rdquo;
-          </p>
-          <p className="text-[11px] text-[#9CA3AF] leading-relaxed">
-            Mutual Continues unlock a daily thread. Real names and photos unlock at Day 7. Full archives at Day 14. Permanent connection confirmed at Day 30.
-          </p>
+      <section className="bg-[#345b40] text-white">
+        <div className="mx-auto flex max-w-6xl flex-col gap-7 px-6 py-14 sm:px-10 md:flex-row md:items-center md:justify-between md:py-16">
+          <div><p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#c6dbc8]">Start with a better introduction</p><h2 className="mt-3 max-w-xl text-3xl font-medium tracking-[-0.04em]">Bring your whole story. Let the right people find you.</h2></div>
+          <Link href="/auth" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-sm font-semibold text-[#345b40] transition hover:bg-[#edf3ec]">Join MeetByStory <ArrowRight size={16} /></Link>
+        </div>
+      </section>
 
-          <Link href="/auth" className="btn-primary mt-6 !w-full py-3.5 text-sm font-bold block">
-            Begin Your Folio — Upload CV
-          </Link>
-        </section>
-
-        {/* Footer */}
-        <footer className="text-center py-4 border-t border-[#1A1428] text-[10px] font-mono text-[#9CA3AF]">
-          FOLIO TECHNOLOGIES // cvdating.app
-        </footer>
-      </div>
+      <footer className="mx-auto flex max-w-6xl flex-col gap-3 px-6 py-6 text-xs text-[#5d645a] sm:flex-row sm:items-center sm:justify-between sm:px-10"><span>MeetByStory · Meet beyond the swipe.</span><span>Dating · Friendship · Language exchange · Lasting connection</span></footer>
     </main>
   )
 }

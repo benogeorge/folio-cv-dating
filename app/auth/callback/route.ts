@@ -3,7 +3,13 @@ import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(request: NextRequest) {
-  const { searchParams, origin } = new URL(request.url)
+  const { searchParams } = new URL(request.url)
+  const requestUrl = new URL(request.url)
+  const configuredOrigin = process.env.NEXT_PUBLIC_APP_URL
+  const origin = configuredOrigin && process.env.NODE_ENV === 'production'
+    ? new URL(configuredOrigin).origin
+    : requestUrl.origin
+  const redirect = (path: string) => NextResponse.redirect(new URL(path, origin))
   const code = searchParams.get('code')
 
   if (code) {
@@ -18,7 +24,7 @@ export async function GET(request: NextRequest) {
         },
       }
     )
-    const { data: { session } } = await supabase.auth.exchangeCodeForSession(code)
+    const { data: { session }, error } = await supabase.auth.exchangeCodeForSession(code)
     if (session) {
       // Check if profile exists
       const { data: profile } = await supabase
@@ -28,10 +34,13 @@ export async function GET(request: NextRequest) {
         .single()
 
       if (!profile || profile.folio_score === 0) {
-        return NextResponse.redirect(`${origin}/onboarding`)
+        return redirect('/onboarding')
       }
-      return NextResponse.redirect(`${origin}/app/today`)
+      return redirect('/app/today')
+    }
+    if (error) {
+      return redirect('/auth?error=link-expired')
     }
   }
-  return NextResponse.redirect(`${origin}/auth?error=callback`)
+  return redirect('/auth?error=callback')
 }

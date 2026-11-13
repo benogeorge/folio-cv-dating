@@ -36,8 +36,7 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const isDemo = request.cookies.get("folio_demo_session")?.value;
-  const isAuth = !!user || isDemo === "true";
+  const isAuth = !!user;
 
   const pathname = request.nextUrl.pathname;
 

@@ -7,7 +7,9 @@ import { Clock } from 'lucide-react'
 function IntentBadge({ intent }: { intent: string }) {
   const map: Record<string, { cls: string; label: string }> = {
     dating:  { cls: 'badge-dating',  label: '🔴 Dating' },
+    long_term: { cls: 'badge-dating', label: '💍 Long-term' },
     friends: { cls: 'badge-friends', label: '🔵 Friends' },
+    language_exchange: { cls: 'badge-friends', label: '🌍 Language exchange' },
     collab:  { cls: 'badge-collab',  label: '🟡 Collab' },
     mentor:  { cls: 'badge-mentor',  label: '🟢 Mentor' },
   }
@@ -40,6 +42,7 @@ function CountdownPill({ expiresAt }: { expiresAt: string }) {
 
 interface Match {
   id: string
+  threadId: string | null
   profile: { id: string; codename: string; city?: string; intent: string[]; skill_tags: string[]; prompts: { question: string; answer: string }[]; folio_score: number; age?: number; industry?: string } | null
   expires_at: string
   user_decision: string | null
@@ -47,41 +50,9 @@ interface Match {
   match_reasons: string[]
 }
 
-export default function TodayClient({ matches, userId }: { matches: Match[]; userId: string }) {
-  const [decisions, setDecisions] = useState<Record<string, string>>({})
-  const [loading, setLoading] = useState<Record<string, boolean>>({})
-  const [spark, setSpark] = useState<string | null>(null)
-
+export default function TodayClient({ matches, userId, matchSetupError = '' }: { matches: Match[]; userId: string; matchSetupError?: string }) {
   const hour = new Date().getHours()
   const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening'
-
-  const decide = async (matchId: string, decision: 'continue' | 'pass') => {
-    setLoading(l => ({ ...l, [matchId]: true }))
-    const res = await fetch('/api/matches/decide', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ matchId, decision }),
-    })
-    const data = await res.json()
-    setDecisions(d => ({ ...d, [matchId]: decision }))
-    setLoading(l => ({ ...l, [matchId]: false }))
-    if (data.spark) setSpark(data.threadId)
-  }
-
-  const pending = matches.filter(m => !decisions[m.id] && m.user_decision === null)
-  const decided = matches.filter(m => decisions[m.id] || m.user_decision)
-
-  if (spark) return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-6 text-center animate-fade-in">
-      <div className="text-7xl mb-6 animate-pulse-slow">🔥</div>
-      <h2 className="text-3xl font-bold text-primary mb-2">It&apos;s a Spark!</h2>
-      <p className="text-text-muted mb-8">You both said yes. Your Thread has begun.<br />30 days starts now.</p>
-      <div className="flex flex-col gap-3 w-full max-w-xs">
-        <Link href={`/app/threads/${spark}`} className="btn-primary">Open Thread →</Link>
-        <button onClick={() => setSpark(null)} className="btn-ghost">Back to Today</button>
-      </div>
-    </div>
-  )
 
   return (
     <div className="px-5 py-6">
@@ -89,32 +60,27 @@ export default function TodayClient({ matches, userId }: { matches: Match[]; use
       <div className="mb-6">
         <h1 className="text-2xl font-bold">{greeting} ✨</h1>
         <p className="text-text-muted text-sm mt-0.5">
-          {pending.length > 0 ? `${pending.length} Folio${pending.length > 1 ? 's' : ''} waiting for you` : 'All Folios decided for today'}
+          {matchSetupError ? 'Introductions are paused' : matches.length > 0 ? `${matches.length} introductions selected for you` : 'We are looking for your first introductions'}
         </p>
-        {pending.some(m => { const h = Math.floor((new Date(m.expires_at).getTime() - Date.now()) / 3600000); return h < 3 }) && (
-          <div className="mt-2 text-xs text-coral font-medium">⏰ Some Folios expire soon — make a call</div>
-        )}
       </div>
 
       {/* Match cards */}
       {matches.length === 0 ? (
         <div className="folio-card p-8 text-center">
-          <div className="text-5xl mb-4">⏳</div>
-          <h3 className="font-bold text-lg mb-2">Next drop: 9AM tomorrow</h3>
-          <p className="text-text-muted text-sm">Complete your Folio to improve your matches.</p>
-          <Link href="/app/folio" className="btn-primary mt-4 inline-block">Improve my Folio</Link>
+          <div className="text-5xl mb-4">{matchSetupError ? '🛠️' : '⏳'}</div>
+          <h3 className="font-bold text-lg mb-2">{matchSetupError ? 'Matching setup incomplete' : 'No introductions yet'}</h3>
+          <p className="text-text-muted text-sm">{matchSetupError || 'We will only show real, compatible members. There may not be enough active people in your preferences yet.'}</p>
+          {!matchSetupError && <Link href="/app/folio" className="btn-primary mt-4 inline-block">Review my profile</Link>}
         </div>
       ) : (
         <div className="flex flex-col gap-4">
           {matches.map(match => {
             const p = match.profile
             if (!p) return null
-            const dec = decisions[match.id] ?? match.user_decision
-            const isLoading = loading[match.id]
             const firstPrompt = Array.isArray(p.prompts) && p.prompts.length > 0 ? p.prompts[0] : null
 
             return (
-              <div key={match.id} className={`folio-card p-5 ${dec ? 'opacity-60' : ''}`}>
+              <div key={match.id} className="folio-card p-5">
                 {/* Top row */}
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
@@ -158,33 +124,18 @@ export default function TodayClient({ matches, userId }: { matches: Match[]; use
                   View full Folio →
                 </Link>
 
-                {/* Decision buttons */}
-                {dec ? (
-                  <div className={`text-center text-sm font-semibold py-2 rounded-full ${dec === 'continue' ? 'bg-primary/20 text-primary' : 'bg-white/5 text-text-muted'}`}>
-                    {dec === 'continue' ? '✓ Continued — waiting for them' : '✗ Passed'}
-                  </div>
-                ) : (
-                  <div className="flex gap-3">
-                    <button onClick={() => decide(match.id, 'pass')} disabled={isLoading} className="btn-ghost flex-1 py-3">
-                      ✗ Pass
-                    </button>
-                    <button onClick={() => decide(match.id, 'continue')} disabled={isLoading} className="btn-primary flex-1 py-3">
-                      {isLoading ? '...' : '✓ Continue'}
-                    </button>
-                  </div>
-                )}
+                <Link href={match.threadId ? `/app/threads/${match.threadId}` : `/app/today/${match.id}`} className="btn-primary block py-3">
+                  Open your 24-hour conversation →
+                </Link>
               </div>
             )
           })}
         </div>
       )}
 
-      {decided.length > 0 && pending.length === 0 && matches.length > 0 && (
+      {matches.length > 0 && (
         <div className="mt-6 text-center">
-          <p className="text-text-muted text-sm">
-            {decided.filter(m => (decisions[m.id] ?? m.user_decision) === 'continue').length} Continues · {decided.filter(m => (decisions[m.id] ?? m.user_decision) === 'pass').length} Passes
-          </p>
-          <p className="text-text-muted text-xs mt-1">Next 4 Folios arrive at <span className="text-primary font-medium">9AM tomorrow</span></p>
+          <p className="text-text-muted text-xs">Talk for 24 hours before moving into your 30-day connection.</p>
         </div>
       )}
     </div>

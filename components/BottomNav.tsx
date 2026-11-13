@@ -7,7 +7,7 @@ const NAV = [
   { href: '/app/today',    icon: Home,          label: 'Today' },
   { href: '/app/threads',  icon: Link2,         label: 'Threads' },
   { href: '/app/messages', icon: MessageCircle, label: 'Messages' },
-  { href: '/app/folio',    icon: User,          label: 'My Folio' },
+  { href: '/app/folio',    icon: User,          label: 'My profile' },
   { href: '/app/sparks',   icon: Zap,           label: 'Sparks' },
 ]
 

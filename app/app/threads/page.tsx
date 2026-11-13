@@ -27,7 +27,7 @@ export default async function ThreadsPage() {
 
   const otherIds = threads?.map(t => t.user_a === session.user.id ? t.user_b : t.user_a) ?? []
   const { data: profiles } = otherIds.length > 0
-    ? await supabase.from('profiles').select('id,codename,city,intent').in('id', otherIds)
+    ? await supabase.from('public_profiles').select('id,codename,city,intent').in('id', otherIds)
     : { data: [] }
 
   const enriched = threads?.map(t => ({
@@ -46,7 +46,7 @@ export default async function ThreadsPage() {
         <div className="folio-card p-8 text-center">
           <div className="text-5xl mb-4">🔗</div>
           <h3 className="font-bold text-lg mb-2">No threads yet</h3>
-          <p className="text-text-muted text-sm mb-4">When you and someone both Continue, you&apos;ll start a Thread.</p>
+          <p className="text-text-muted text-sm mb-4">Your automatically selected introductions open private conversations here.</p>
           <Link href="/app/today" className="btn-primary inline-block max-w-xs">Go to Today →</Link>
         </div>
       ) : (

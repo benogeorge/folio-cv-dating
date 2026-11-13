@@ -28,7 +28,10 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ ma
   if (!match) return notFound()
 
   const targetId = match.user_id === session.user.id ? match.matched_user_id : match.user_id
-  const { data: profile } = await supabase.from('profiles').select('*').eq('id', targetId).single()
+  const { data: profile } = await supabase.from('public_profiles').select('id,codename,city,age,intent,skill_tags,prompts,interests,industry,education_level').eq('id', targetId).single()
+  const { data: thread } = await supabase.from('threads').select('id')
+    .or(`and(user_a.eq.${session.user.id},user_b.eq.${targetId}),and(user_a.eq.${targetId},user_b.eq.${session.user.id})`)
+    .maybeSingle()
 
-  return <MatchDetailClient match={match} profile={profile} userId={session.user.id} />
+  return <MatchDetailClient match={match} profile={profile} threadId={thread?.id ?? null} />
 }

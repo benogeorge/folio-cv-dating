@@ -30,7 +30,7 @@ export default async function ThreadDetailPage({ params }: { params: Promise<{ t
   if (!thread) return notFound()
 
   const partnerId = thread.user_a === session.user.id ? thread.user_b : thread.user_a
-  const { data: partner } = await supabase.from('profiles').select('*').eq('id', partnerId).single()
+  const { data: partner } = await supabase.from('public_profiles').select('id,codename,first_name,city,country,age,intent,skill_tags,languages,interests,prompts').eq('id', partnerId).single()
   const { data: messages } = await supabase
     .from('messages')
     .select('*')

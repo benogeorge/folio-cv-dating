@@ -34,13 +34,24 @@ export default function ThreadChatClient({
   const [sending, setSending] = useState(false)
   const [todayCount, setTodayCount] = useState(initialTodayCount)
   const [confirming, setConfirming] = useState(false)
+  const [clockNow, setClockNow] = useState(0)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   const isUserA = thread.user_a === currentUserId
   const isConfirmedToday = isUserA ? thread.user_a_confirmed : thread.user_b_confirmed
   const isUnlockedDay7 = thread.day_count >= 7
   const maxMessages = isUnlockedDay7 ? Infinity : 5
+  const isIntro = thread.day_count === 0
+  const introEndsAt = new Date(thread.created_at).getTime() + 24 * 60 * 60 * 1000
+  const introComplete = !isIntro || clockNow >= introEndsAt
   const remainingMessages = Math.max(0, 5 - todayCount)
+
+  useEffect(() => {
+    const update = () => setClockNow(Date.now())
+    update()
+    const id = setInterval(update, 30000)
+    return () => clearInterval(id)
+  }, [])
 
   // Realtime subscription
   useEffect(() => {
@@ -77,7 +88,7 @@ export default function ThreadChatClient({
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!input.trim() || sending) return
-    if (!isUnlockedDay7 && todayCount >= 5) return
+    if (!isIntro && !isUnlockedDay7 && todayCount >= 5) return
 
     setSending(true)
     const text = input.trim()
@@ -178,9 +189,15 @@ export default function ThreadChatClient({
         </div>
 
         {/* Daily Confirmation Banner */}
-        {!isConfirmedToday && thread.status === 'active' && (
+        {isIntro && !introComplete && (
+          <p className="mt-3 rounded-xl border border-border bg-app/40 p-2.5 text-center text-xs text-text-muted">
+            Your introduction is open for 24 hours. Take this time to talk and get to know each other.
+          </p>
+        )}
+
+        {!isConfirmedToday && thread.status === 'active' && introComplete && (
           <div className="mt-3 p-2.5 bg-primary/10 border border-primary/30 rounded-xl flex items-center justify-between">
-            <span className="text-xs text-text-main font-medium">Continue Thread for Day {thread.day_count + 1}?</span>
+            <span className="text-xs text-text-main font-medium">Continue together for Day {thread.day_count + 1}?</span>
             <div className="flex gap-2">
               <button
                 onClick={() => handleConfirm('no')}
@@ -205,11 +222,9 @@ export default function ThreadChatClient({
       <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-2.5">
         {messages.length === 0 ? (
           <div className="my-auto text-center p-6 text-text-muted text-sm">
-            <p className="mb-2">🎉 Thread initiated.</p>
+            <p className="mb-2">Your 24-hour introduction is open.</p>
             <p className="text-xs">
-              {!isUnlockedDay7
-                ? 'High friction connection: limited to 5 messages per day until Day 7 unlock.'
-                : 'Free chat unlocked.'}
+              Start with a question and see where the conversation goes.
             </p>
           </div>
         ) : (
@@ -230,7 +245,7 @@ export default function ThreadChatClient({
 
       {/* Input Form */}
       <div className="p-3 border-t border-border bg-card/60 shrink-0">
-        {!isUnlockedDay7 && (
+        {!isIntro && !isUnlockedDay7 && (
           <div className="text-[11px] text-text-muted mb-1.5 flex justify-between">
             <span>Daily message limit:</span>
             <span className={remainingMessages === 0 ? 'text-coral font-bold' : 'text-primary'}>
@@ -244,17 +259,17 @@ export default function ThreadChatClient({
             type="text"
             className="input !py-2.5 text-sm"
             placeholder={
-              !isUnlockedDay7 && remainingMessages === 0
+              !isIntro && !isUnlockedDay7 && remainingMessages === 0
                 ? 'Limit reached for today. Resets tomorrow.'
                 : 'Write a thoughtful message...'
             }
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            disabled={(!isUnlockedDay7 && remainingMessages === 0) || sending}
+            disabled={(!isIntro && !isUnlockedDay7 && remainingMessages === 0) || sending}
           />
           <button
             type="submit"
-            disabled={(!isUnlockedDay7 && remainingMessages === 0) || !input.trim() || sending}
+            disabled={(!isIntro && !isUnlockedDay7 && remainingMessages === 0) || !input.trim() || sending}
             className="btn-primary !w-auto !py-2.5 !px-4 flex items-center justify-center shrink-0"
           >
             <Send size={16} />

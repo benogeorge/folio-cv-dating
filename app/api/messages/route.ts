@@ -2,8 +2,13 @@ import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 import { sanitizeText, containsBlockedContent } from '@/lib/sanitize'
+import { checkRateLimit } from '@/lib/rate-limit'
 
 export async function POST(req: NextRequest) {
+  const origin = req.headers.get('origin')
+  if (origin && origin !== new URL(req.url).origin) {
+    return NextResponse.json({ error: 'Invalid request origin.' }, { status: 403 })
+  }
   const cookieStore = await cookies()
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -16,8 +21,11 @@ export async function POST(req: NextRequest) {
     }
   )
 
-  const { data: { session } } = await supabase.auth.getSession()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
+  const rateLimit = checkRateLimit(`messages-${user.id}`, 40, 60 * 1000)
+  if (!rateLimit.allowed) return NextResponse.json({ error: 'Please slow down before sending another message.' }, { status: 429 })
 
   const { threadId, content } = await req.json()
   if (!threadId || !content) return NextResponse.json({ error: 'Missing parameters' }, { status: 400 })
@@ -32,7 +40,7 @@ export async function POST(req: NextRequest) {
     .from('threads')
     .select('*')
     .eq('id', threadId)
-    .or(`user_a.eq.${session.user.id},user_b.eq.${session.user.id}`)
+    .or(`user_a.eq.${user.id},user_b.eq.${user.id}`)
     .single()
 
   if (!thread || thread.status !== 'active') {
@@ -40,7 +48,7 @@ export async function POST(req: NextRequest) {
   }
 
   // 2. Check 5-message daily limit if Day < 7
-  if (thread.day_count < 7) {
+  if (thread.day_count > 0 && thread.day_count < 7) {
     const todayStart = new Date()
     todayStart.setHours(0, 0, 0, 0)
 
@@ -48,7 +56,7 @@ export async function POST(req: NextRequest) {
       .from('messages')
       .select('*', { count: 'exact', head: true })
       .eq('thread_id', threadId)
-      .eq('sender_id', session.user.id)
+      .eq('sender_id', user.id)
       .gte('created_at', todayStart.toISOString())
 
     if ((count ?? 0) >= 5) {
@@ -64,7 +72,7 @@ export async function POST(req: NextRequest) {
     .from('messages')
     .insert({
       thread_id: threadId,
-      sender_id: session.user.id,
+      sender_id: user.id,
       content: sanitized,
     })
     .select('*')

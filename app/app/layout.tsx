@@ -25,7 +25,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
     <div className="min-h-screen bg-app flex flex-col max-w-md mx-auto">
       {/* Top bar */}
       <header className="flex items-center justify-between px-6 py-4 border-b border-border">
-        <span className="text-xl font-bold text-primary tracking-tight">FOLIO</span>
+        <span className="text-xl font-bold text-primary tracking-tight">MEETBYSTORY</span>
         <span className="text-text-muted text-xs">{profile.codename}</span>
       </header>
 

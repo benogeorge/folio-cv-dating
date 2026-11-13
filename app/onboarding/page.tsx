@@ -18,7 +18,7 @@ const PROMPTS = [
   "I'd trade my job title for...",
 ]
 
-const INTERESTS = ['🎵 Music','🏃 Fitness','✈️ Travel','🎮 Gaming','📚 Books','🍳 Cooking','🎨 Art','🎬 Film','🌿 Nature','🧘 Yoga','🏋️ Gym','🧗 Climbing','⚽ Football','🎸 Guitar','💃 Dancing','🤿 Scuba','🚴 Cycling','🧑‍💻 Tech','☕ Coffee','🍷 Wine']
+const INTERESTS = ['🎵 Music','🏃 Fitness','✈️ Travel','🎮 Gaming','📚 Books','🍳 Cooking','🎨 Art','🎬 Film','🌿 Nature','🧘 Yoga','🏋️ Gym','🧗 Climbing','⚽ Football','🎸 Guitar','💃 Dancing','🤿 Scuba','🚴 Cycling','🧑‍💻 Tech','☕ Coffee','🍷 Wine','🎤 K-pop','🌸 Anime & manga','🖤 Goth & alternative','🕹️ Esports','🧸 Cute culture']
 
 const STEPS = ['basics', 'preferences', 'cv', 'prompts', 'interests', 'done']
 
@@ -69,12 +69,18 @@ export default function OnboardingPage() {
       if (!user) throw new Error('Not authenticated')
 
       let cv_url = null
+      let industry = null
+      let cv_text = null
       if (form.cv_file) {
         const fd = new FormData()
-        fd.append('cv', form.cv_file)
+        fd.append('file', form.cv_file)
+        fd.append('skills', form.skill_tags.join(', '))
         const res = await fetch('/api/upload-cv', { method: 'POST', body: fd })
         const data = await res.json()
-        if (data.path) cv_url = data.path
+        if (!res.ok) throw new Error(data.error || 'Could not upload your CV. Please try again.')
+        cv_url = data.cv_url ?? null
+        industry = data.industry ?? null
+        cv_text = data.cv_text ?? null
       }
 
       const prompts = form.selectedPrompts.map((pi, i) => ({
@@ -101,6 +107,8 @@ export default function OnboardingPage() {
         interests: form.interests,
         prompts,
         cv_url,
+        industry,
+        cv_text,
         folio_score: 0,
         is_active: true,
       }
@@ -167,7 +175,7 @@ export default function OnboardingPage() {
               <div>
                 <label className="text-xs text-text-muted uppercase tracking-wider mb-2 block">Languages spoken</label>
                 <div className="flex flex-wrap gap-2">
-                  {['English','French','Spanish','German','Italian','Portuguese','Arabic','Hindi','Mandarin','Japanese'].map(lang => (
+                  {['English','French','Spanish','German','Italian','Portuguese','Arabic','Hindi','Mandarin','Japanese','Korean','Turkish','Russian','Ukrainian','Polish','Dutch','Swedish','Indonesian','Vietnamese','Thai','Bengali','Urdu','Tamil','Punjabi','Swahili'].map(lang => (
                     <button key={lang} onClick={() => toggle('languages', lang)}
                       className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${form.languages.includes(lang) ? 'bg-primary text-app border-primary' : 'border-border text-text-muted hover:border-primary/50'}`}>
                       {lang}
@@ -191,12 +199,13 @@ export default function OnboardingPage() {
               <div>
                 <label className="text-xs text-text-muted uppercase tracking-wider mb-2 block">I&apos;m open to connecting with</label>
                 <div className="flex flex-wrap gap-2">
-                  {['Man','Woman','Non-binary','Anyone'].map(g => (
-                    <button key={g} onClick={() => toggle('preferred_genders', g.toLowerCase().replace(/ /g,'-'))}
-                      className={`px-4 py-2 rounded-full text-sm font-medium border transition-all ${form.preferred_genders.includes(g.toLowerCase().replace(/ /g,'-')) ? 'bg-primary text-app border-primary' : 'border-border text-text-muted hover:border-primary/50'}`}>
+                  {['Man','Woman','Non-binary','Anyone'].map(g => {
+                    const value = g === 'Anyone' ? 'any' : g.toLowerCase().replace(/ /g,'-')
+                    return <button key={g} onClick={() => toggle('preferred_genders', value)}
+                      className={`px-4 py-2 rounded-full text-sm font-medium border transition-all ${form.preferred_genders.includes(value) ? 'bg-primary text-app border-primary' : 'border-border text-text-muted hover:border-primary/50'}`}>
                       {g}
                     </button>
-                  ))}
+                  })}
                 </div>
               </div>
               <div>
@@ -221,7 +230,7 @@ export default function OnboardingPage() {
               <div>
                 <label className="text-xs text-text-muted uppercase tracking-wider mb-2 block">I&apos;m here for</label>
                 <div className="flex flex-wrap gap-2">
-                  {[{v:'dating',l:'🔴 Dating'},{v:'friends',l:'🔵 Friends'},{v:'collab',l:'🟡 Collab'},{v:'mentor',l:'🟢 Mentorship'}].map(i => (
+                  {[{v:'dating',l:'🔴 Dating'},{v:'long_term',l:'💍 Long-term relationship'},{v:'friends',l:'🔵 Friendship'},{v:'language_exchange',l:'🌍 Language exchange'},{v:'collab',l:'🟡 Collaboration'},{v:'mentor',l:'🟢 Mentorship'}].map(i => (
                     <button key={i.v} onClick={() => toggle('intent', i.v)}
                       className={`px-4 py-2 rounded-full text-sm font-medium border transition-all ${form.intent.includes(i.v) ? 'bg-primary text-app border-primary' : 'border-border text-text-muted hover:border-primary/50'}`}>
                       {i.l}

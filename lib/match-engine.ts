@@ -1,6 +1,5 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { Profile } from "./types";
-import { SAMPLE_CANDIDATE_PROFILES } from "./seed-data";
 
 export interface UserWeights {
   w_age: number;
@@ -272,55 +271,25 @@ export async function generateDailyMatches(
 ) {
   const today = new Date().toISOString().split("T")[0];
 
-  // 1. Already generated today?
-  const { data: existing } = await supabase
+  // Count both introductions chosen by this person and introductions sent to them.
+  const { data: todaysIntroductions, error: todayError } = await supabase
     .from("daily_matches")
-    .select("*, matched_profile:matched_user_id(*)")
-    .eq("user_id", userId)
-    .eq("match_date", today);
+    .select("id,user_id,matched_user_id")
+    .eq("match_date", today)
+    .or(`user_id.eq.${userId},matched_user_id.eq.${userId}`);
+  if (todayError) throw todayError;
 
-  if ((existing?.length ?? 0) >= 4) {
-    return existing;
-  }
+  const slotsToFill = Math.max(0, 4 - (todaysIntroductions?.length ?? 0));
+  if (slotsToFill === 0) return todaysIntroductions ?? [];
 
-  // 2. Get user profile + weights
-  let user: Profile | null = null;
-  const { data: userData } = await supabase
+  // Match real, active members only. Never fill the queue with demo profiles.
+  const { data: user, error: userError } = await supabase
     .from("profiles")
     .select("*")
     .eq("id", userId)
     .maybeSingle();
-
-  user = userData;
-
-  if (!user) {
-    // If user profile is not found or mock session, build a standard fallback user
-    user = {
-      id: userId,
-      codename: "My_Folio_User",
-      first_name: "You",
-      city: "London",
-      country: "United Kingdom",
-      region: "Greater London",
-      latitude: 51.5074,
-      longitude: -0.1278,
-      age: 27,
-      gender: "man",
-      languages: ["english"],
-      preferred_age_min: 22,
-      preferred_age_max: 35,
-      preferred_genders: ["any"],
-      max_distance_km: 100,
-      intent: ["dating", "collab", "friends"],
-      industry: "Technology",
-      education_level: "bachelors",
-      interests: ["tech", "art", "running", "books"],
-      skill_tags: ["Product Design", "TypeScript", "AI Systems"],
-      prompts: [],
-      folio_score: 90,
-      is_active: true,
-    };
-  }
+  if (userError) throw userError;
+  if (!user || !user.is_active) return [];
 
   const { data: weightsRow } = await supabase
     .from("user_weights")
@@ -343,41 +312,32 @@ export async function generateDailyMatches(
 
   // 3. Exclude recently matched users (last 30 days) and self
   const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
-  const { data: recentMatches } = await supabase
+  const { data: recentMatches, error: recentMatchesError } = await supabase
     .from("daily_matches")
-    .select("matched_user_id")
-    .eq("user_id", userId)
+    .select("user_id,matched_user_id")
+    .or(`user_id.eq.${userId},matched_user_id.eq.${userId}`)
     .gte("created_at", thirtyDaysAgo);
+  if (recentMatchesError) throw recentMatchesError;
 
-  const excludeIds = new Set([
-    userId,
-    ...(recentMatches?.map((m) => m.matched_user_id) || []),
-  ]);
+  const excludeIds = new Set<string>([userId]);
+  for (const match of recentMatches ?? []) {
+    const otherId = match.matched_user_id === userId ? match.user_id : match.matched_user_id;
+    if (otherId) excludeIds.add(otherId);
+  }
+  for (const match of todaysIntroductions ?? []) {
+    const otherId = match.matched_user_id === userId ? match.user_id : match.matched_user_id;
+    if (otherId) excludeIds.add(otherId);
+  }
 
   // 4. Query candidate pool from DB
-  let candidates: Profile[] = [];
-  try {
-    const { data: dbCandidates } = await supabase
-      .from("profiles")
-      .select("*")
-      .eq("is_active", true)
-      .limit(60);
-
-    if (dbCandidates && dbCandidates.length > 0) {
-      candidates = dbCandidates.filter((c) => !excludeIds.has(c.id));
-    }
-  } catch (err) {
-    console.warn("Could not query DB candidate pool, using seed pool:", err);
-  }
-
-  // If candidate pool in DB is fewer than 4 (e.g., initial setup or local test), supplement from curated SAMPLE_CANDIDATE_PROFILES
-  if (candidates.length < 4) {
-    for (const sample of SAMPLE_CANDIDATE_PROFILES) {
-      if (!excludeIds.has(sample.id) && !candidates.some((c) => c.id === sample.id)) {
-        candidates.push(sample);
-      }
-    }
-  }
+  const { data: dbCandidates, error: candidatesError } = await supabase
+    .from("profiles")
+    .select("id,codename,prompts,city,country,age,gender,languages,preferred_age_min,preferred_age_max,preferred_genders,max_distance_km,latitude,longitude,intent,industry,education_level,interests,skill_tags,folio_score,is_active")
+    .eq("is_active", true)
+    .neq("id", userId)
+    .limit(500);
+  if (candidatesError) throw candidatesError;
+  const candidates = (dbCandidates ?? []).filter((candidate) => !excludeIds.has(candidate.id));
 
   // 5. Score + filter candidates
   const scored: Array<{
@@ -390,10 +350,7 @@ export async function generateDailyMatches(
 
   for (const candidate of candidates) {
     const { pass } = passesHardFilters(user, candidate);
-    if (!pass && candidates.length > 4) {
-      // If we have plenty of candidates, enforce hard filter strictly
-      continue;
-    }
+    if (!pass) continue;
 
     let distKm = 0;
     if (user.latitude && candidate.latitude) {
@@ -418,11 +375,11 @@ export async function generateDailyMatches(
     const j = Math.floor(Math.random() * (i + 1));
     [top10[i], top10[j]] = [top10[j], top10[i]];
   }
-  const selected = top10.slice(0, 4);
+  const selected = top10.slice(0, slotsToFill);
 
   // 7. Insert or prepare match rows
   const expiresAt = new Date();
-  expiresAt.setHours(23, 59, 59, 999);
+  expiresAt.setTime(expiresAt.getTime() + 24 * 60 * 60 * 1000);
 
   const matchRows = selected.map((s) => ({
     user_id: userId,
@@ -435,10 +392,36 @@ export async function generateDailyMatches(
   }));
 
   try {
-    const { data: inserted } = await supabase
+    const { data: inserted, error: insertError } = await supabase
       .from("daily_matches")
       .insert(matchRows)
-      .select("*, matched_profile:matched_user_id(*)");
+      .select("id,user_id,matched_user_id,match_date,expires_at,status,match_score,match_reasons,created_at");
+    if (insertError) throw insertError;
+
+    // Start the conversation as soon as an introduction is assigned. There is
+    // no pre-chat pass/continue gate; the 24-hour introduction window is for
+    // talking, not deciding whether a profile is worth opening.
+    for (const introduction of inserted ?? []) {
+      const { data: existingThread, error: threadLookupError } = await supabase
+        .from("threads")
+        .select("id")
+        .eq("user_a", introduction.user_id)
+        .eq("user_b", introduction.matched_user_id)
+        .maybeSingle();
+      if (threadLookupError) throw threadLookupError;
+      if (!existingThread) {
+        const { error: threadInsertError } = await supabase.from("threads").insert({
+          user_a: introduction.user_id,
+          user_b: introduction.matched_user_id,
+          day_count: 0,
+          streak: 0,
+          status: "active",
+          user_a_confirmed: false,
+          user_b_confirmed: false,
+        });
+        if (threadInsertError) throw threadInsertError;
+      }
+    }
 
     // Log algo signals
     await supabase.from("algo_signals").insert(
@@ -451,25 +434,9 @@ export async function generateDailyMatches(
       }))
     );
 
-    if (inserted && inserted.length > 0) {
-      return inserted;
-    }
+    return inserted ?? [];
   } catch (err) {
-    console.warn("Match insert fallback to local enriched rows:", err);
+    console.error("Could not save today's introductions:", err);
+    throw err;
   }
-
-  // Fallback enriched rows
-  return selected.map((s, idx) => ({
-    id: `match-local-${idx + 1}-${Date.now()}`,
-    user_id: userId,
-    matched_user_id: s.profile.id,
-    match_date: today,
-    expires_at: expiresAt.toISOString(),
-    match_score: s.score,
-    match_reasons: s.reasons,
-    status: "pending" as const,
-    user_decision: null,
-    matched_user_decision: null,
-    matched_profile: s.profile,
-  }));
 }

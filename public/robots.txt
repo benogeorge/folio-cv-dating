@@ -2,5 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /app/
 Disallow: /api/
+Disallow: /auth/
+Disallow: /onboarding/
 
-Sitemap: https://folio-dating.vercel.app/sitemap.xml
+Sitemap: https://cvdating.app/sitemap.xml

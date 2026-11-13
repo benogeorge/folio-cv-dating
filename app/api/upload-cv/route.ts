@@ -67,8 +67,7 @@ export async function POST(req: NextRequest) {
       data: { user },
     } = await supabase.auth.getUser();
 
-    const isDemo = req.cookies.get("folio_demo_session")?.value === "true";
-    const userId = user?.id || (isDemo ? "demo-user-id" : null);
+    const userId = user?.id ?? null;
 
     if (!userId) {
       return NextResponse.json(
@@ -118,15 +117,20 @@ export async function POST(req: NextRequest) {
             upsert: true,
           });
 
-        if (!uploadError) {
-          cvUrl = uniqueFileName;
-        } else {
-          // Fallback path
-          cvUrl = `cvs/${uniqueFileName}`;
+        if (uploadError) {
+          console.error("CV storage upload failed:", uploadError.message);
+          return NextResponse.json(
+            { error: "Your CV could not be saved. Please try again in a moment." },
+            { status: 503 }
+          );
         }
+        cvUrl = uniqueFileName;
       } catch (storageErr) {
-        console.warn("Storage upload fallback:", storageErr);
-        cvUrl = `cvs/${uniqueFileName}`;
+        console.error("CV storage upload failed:", storageErr);
+        return NextResponse.json(
+          { error: "Your CV could not be saved. Please try again in a moment." },
+          { status: 503 }
+        );
       }
 
       // Extract basic text from filename and metadata
